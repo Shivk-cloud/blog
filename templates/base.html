@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{%block title%} {%endblock%}</title>
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var elems = document.querySelectorAll('.dropdown-trigger');
+            var instances = M.Dropdown.init(elems);
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          var dropdownTrigger = document.querySelector('.dropdown-trigger');
+          var dropdownInstance = M.Dropdown.init(dropdownTrigger, {
+            hover: true,
+            coverTrigger: false,
+          });
+      
+          var dropdownItems = document.querySelectorAll('.dropdown-content li');
+          dropdownItems.forEach(function(item) {
+            item.addEventListener('click', function(event) {
+              // Prevent the default anchor behavior
+              event.preventDefault();
+              
+              // Get the URL from the clicked item's href attribute
+              var url = item.querySelector('a').getAttribute('href');
+              
+              // Redirect to the selected URL
+              window.location.href = url;
+      
+              // Re-initialize the dropdown after redirection
+              dropdownInstance = M.Dropdown.init(dropdownTrigger, {
+                hover: true,
+                coverTrigger: false,
+              });
+            });
+          });
+        });
+      </script>
+    
+</head>
+<body>
+{%include 'header.html'%} 
+
+{%block content%}
+
+{%endblock%}
+
+<script>
+    M.AutoInit();
+</script>
+</body>
+</html>
